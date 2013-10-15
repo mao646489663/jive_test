@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- Servlet 2.3 is required for Jive Forums 3 -->
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+    
+<web-app>
+    <display-name>Jive Forums 3</display-name>
+    <description>Forum application by Jive Software (jivesoftware.com)</description>
+    <!--
+        Uncomment the following context-param section to specify your
+        jiveHome location in this file. Setting the value here will override
+        the value in jive_init.xml.
+
+        For unix the param value might be:
+           /var/web/jiveHome
+
+        For Windows this might be:
+           c:\web\jiveHome
+
+        Please note that spaces in the path *might* fail. For example on Windows:
+           c:\Program Files\...
+        may not work whereas:
+           c:\progra~1\..
+        will work.
+    -->
+    <!--
+        <context-param>
+            <param-name>jiveHome</param-name>
+            <param-value>c:\jiveHome</param-value>
+        </context-param>
+    -->
+    
+    <!-- Filters -->
+    <filter>
+        <filter-name>Set Character Encoding</filter-name>
+        <filter-class>com.jivesoftware.util.SetCharacterEncodingFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>PresenceFilter</filter-name>
+        <filter-class>com.jivesoftware.base.presence.PresenceFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>SetupFilter</filter-name>
+        <filter-class>com.jivesoftware.util.JiveSetupFilter</filter-class>
+    </filter>
+    
+    <!-- Filter mappings -->
+    <filter-mapping>
+        <filter-name>Set Character Encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>PresenceFilter</filter-name>
+        <url-pattern>*.jspa</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SetupFilter</filter-name>
+        <url-pattern>/index.jspa</url-pattern>
+    </filter-mapping>
+    
+    <!-- Listeners -->
+    <listener>
+        <listener-class>com.jivesoftware.base.presence.PresenceListener</listener-class>
+    </listener>
+    
+    <!-- Servlets -->
+    <servlet>
+        <servlet-name>JiveServlet</servlet-name>
+        <servlet-class>com.jivesoftware.forum.util.JiveServlet13</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>com.jivesoftware.webwork.dispatcher.ServletDispatcher</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <!-- Migration servlet -->
+    <!-- This servlet (and its mappings) is diabled by default. If you are upgrading -->
+    <!-- from Jive 2.x, it is recommended to enable this servlet. This will          -->
+    <!-- servlet will automatically translate calls for Jive 2.x pages to            -->
+    <!-- Jive 3.x pages, ie: forum.jsp?forum=1 to forum.jspa?forumID=1               -->
+    <!--
+    <servlet>
+        <servlet-name>migration</servlet-name>
+        <servlet-class>com.jivesoftware.forum.util.MigrationServlet</servlet-class>
+        <init-param>
+            <param-name>properties</param-name>
+            <param-value>jive-forums-mappings.properties</param-value>
+        </init-param>
+        <load-on-startup>10</load-on-startup>
+    </servlet>
+    -->
+
+    <!-- Servlet mappings -->
+    <servlet-mapping>
+        <servlet-name>JiveServlet</servlet-name>
+        <url-pattern>/servlet/JiveServlet/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.jspa</url-pattern>
+    </servlet-mapping>
+    <!-- Migration servlet mappings commented out by default (see note above) -->
+    <!--
+    <servlet-mapping>
+        <servlet-name>migration</servlet-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>migration</servlet-name>
+        <url-pattern>/forum.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>migration</servlet-name>
+        <url-pattern>/thread.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>migration</servlet-name>
+        <url-pattern>/search.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>migration</servlet-name>
+        <url-pattern>/profile.jsp</url-pattern>
+    </servlet-mapping>
+    -->
+
+    <!-- Welcome file list -->
+    <welcome-file-list>
+        <welcome-file>index.jspa</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    
+    <!-- tag lib definitions -->
+    <taglib>
+        <taglib-uri>webwork</taglib-uri>
+        <taglib-location>/WEB-INF/lib/jivebase.jar</taglib-location>
+    </taglib>
+    <taglib>
+        <taglib-uri>jivetags</taglib-uri>
+        <taglib-location>/WEB-INF/lib/jiveforums.jar</taglib-location>
+    </taglib>
+</web-app>

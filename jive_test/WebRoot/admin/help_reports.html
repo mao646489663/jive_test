@@ -1,0 +1,68 @@
+
+<a name="server_side_graphics"></a><b>Server-Side Graphics</b>
+<ul>
+    <p>
+    Many of the reports that Jive Forums comes with includes graphs and charts
+    which must be generated on the server. This test test to see if your environment
+    supports the creation of graphics on your server.
+    </p>
+    <p>
+    In UNIX, Java requires the use of the display to create images. This is a
+    limitation of the Java AWT libraries that is fixed in the JDK 1.4 release.
+    However many situations require the use older JDK's which do not support the
+    'headless' mode that is required. There are two possible solutions for applications
+    such as Jive Forums, which run in a Java application server. It is possible
+    to set the <tt>DISPLAY</tt> environment variable and have a writeable display that
+    Java can use. However, this is not a good solution for most servers as it creates
+    security problems and is an ungainly solution at best. The solution we recommend
+    is the use of a toolkit such as PJA (Pure Java AWT).
+    </p>
+</ul>
+
+<a name="output_directory"></a><b>Output Directory</b>
+<ul>
+    <p>
+    Report information is not dynamically generated on demand and so must be
+    stored on the file system to be later viewed through a web browser. By default,
+    reports are written to a subdirectory of your jiveHome directory so you will need to browse
+    your filesystem in order to view them. You may wish to enter an
+    alternative directory that is in the path of your webserver documents directory
+    so that the reports are publicly viewable.
+    </p>
+    <p>
+    You can specify that reports are generated into a <u>timestamp directory</u>. This
+    will create each new report in its own subdirectory and will not override older
+    reports. The format for this directory is YYYY-MM-DD (ie, 2003-03-31).
+    In the event that reports are generated
+    more than once per day, the report format will be YYYY-MM-DD-N for every additional
+    report.
+    </p>
+</ul>
+
+<a name="excluded_forums"></a><b>Excluded Forums</b>
+<ul>
+    <p>
+    Oftentimes reports on certain forums are not required and thus can be left out of
+    report generation process. This will cause these forums to not be included in the
+    reports and also speeds up the report generation process.
+    </p>
+</ul>
+
+<a name="user_group"></a><b>User and Group Reports</b>
+<ul>
+    <p>
+    You may wish to not run reports on users or groups, especially if you have a
+    customer user or group implementation. User reports are reports that detail
+    things like active users, users created over time or user domains.
+    </p>
+</ul>
+
+
+<a name="date_range"></a><b>Global Date Range</b>
+<ul>
+    <p>
+    You can set a global date range to restrict the size of data being examined. This is useful
+    if you have a large amount of category traffic because examining all data will take
+    a long time and will increase your database load quite a bit.
+    </p>
+</ul>
